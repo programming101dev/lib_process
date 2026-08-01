@@ -90,10 +90,12 @@ int p101_posix_spawn_file_actions_addopen(const struct p101_env *env, struct p10
 
 int p101_posix_spawn_file_actions_destroy(const struct p101_env *env, struct p101_error *err, posix_spawn_file_actions_t *file_actions)
 {
-    int ret_val;
+    char resource_id[P101_ENV_POINTER_RESOURCE_ID_SIZE];
+    int  ret_val;
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    p101_env_pointer_resource_id(resource_id, sizeof(resource_id), (const void *)file_actions);
     ret_val = posix_spawn_file_actions_destroy(file_actions);
 
     if(ret_val != 0)
@@ -102,7 +104,7 @@ int p101_posix_spawn_file_actions_destroy(const struct p101_env *env, struct p10
     }
     else
     {
-        P101_TRACK_POINTER_RESOURCE_RELEASE(env, "spawn-file-actions", (const void *)file_actions, NULL);
+        P101_TRACK_RESOURCE_RELEASE(env, "spawn-file-actions", resource_id, NULL);
     }
     P101_TRACE_EXIT(env);
     return ret_val;
@@ -131,10 +133,12 @@ int p101_posix_spawn_file_actions_init(const struct p101_env *env, struct p101_e
 
 int p101_posix_spawnattr_destroy(const struct p101_env *env, struct p101_error *err, posix_spawnattr_t *attr)
 {
-    int ret_val;
+    char resource_id[P101_ENV_POINTER_RESOURCE_ID_SIZE];
+    int  ret_val;
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    p101_env_pointer_resource_id(resource_id, sizeof(resource_id), (const void *)attr);
     ret_val = posix_spawnattr_destroy(attr);
 
     if(ret_val != 0)
@@ -143,7 +147,7 @@ int p101_posix_spawnattr_destroy(const struct p101_env *env, struct p101_error *
     }
     else
     {
-        P101_TRACK_POINTER_RESOURCE_RELEASE(env, "spawn-attributes", (const void *)attr, NULL);
+        P101_TRACK_RESOURCE_RELEASE(env, "spawn-attributes", resource_id, NULL);
     }
 
     P101_TRACE_EXIT(env);
