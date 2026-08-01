@@ -8,7 +8,9 @@ int p101_getpriority(const struct p101_env *env, struct p101_error *err, int whi
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN(env, err, -1);
     errno = 0;
-#ifdef __FreeBSD__
+#ifdef __linux__
+    ret_val = getpriority((__priority_which_t)which, who);
+#elif defined(__FreeBSD__)
     ret_val = getpriority(which, (int)who);
 #else
     ret_val = getpriority(which, who);
@@ -29,8 +31,12 @@ int p101_getrlimit(const struct p101_env *env, struct p101_error *err, int resou
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN(env, err, -1);
-    errno   = 0;
+    errno = 0;
+#ifdef __linux__
+    ret_val = getrlimit((__rlimit_resource_t)resource, rlp);
+#else
     ret_val = getrlimit(resource, rlp);
+#endif
 
     if(ret_val == -1)
     {
@@ -66,7 +72,9 @@ int p101_setpriority(const struct p101_env *env, struct p101_error *err, int whi
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN(env, err, -1);
     errno = 0;
-#ifdef __FreeBSD__
+#ifdef __linux__
+    ret_val = setpriority((__priority_which_t)which, who, value);
+#elif defined(__FreeBSD__)
     ret_val = setpriority(which, (int)who, value);
 #else
     ret_val = setpriority(which, who, value);
@@ -87,8 +95,12 @@ int p101_setrlimit(const struct p101_env *env, struct p101_error *err, int resou
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN(env, err, -1);
-    errno   = 0;
+    errno = 0;
+#ifdef __linux__
+    ret_val = setrlimit((__rlimit_resource_t)resource, rlp);
+#else
     ret_val = setrlimit(resource, rlp);
+#endif
 
     if(ret_val == -1)
     {
