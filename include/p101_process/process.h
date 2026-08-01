@@ -46,7 +46,7 @@ extern "C"
     int                     p101_kill(const struct p101_env *env, struct p101_error *err, pid_t pid, int sig);
     int                     p101_killpg(const struct p101_env *env, struct p101_error *err, pid_t pgrp, int sig);
     int                     p101_nice(const struct p101_env *env, struct p101_error *err, int value);
-    int                     p101_pause(const struct p101_env *env);
+    int                     p101_pause(const struct p101_env *env, struct p101_error *err);
     int                     p101_pclose(const struct p101_env *env, struct p101_error *err, FILE *stream);
     FILE                   *p101_popen(const struct p101_env *env, struct p101_error *err, const char *command, const char *mode) P101_ATTR_WARN_UNUSED_RESULT;
     P101_ATTR_NORETURN void p101_posix_exit_immediately(const struct p101_env *env, int status);
@@ -88,7 +88,7 @@ extern "C"
     P101_ATTR_NORETURN void p101_siglongjmp(const struct p101_env *env, sigjmp_buf jmpbuf, int val);
     int                     p101_sigpending(const struct p101_env *env, struct p101_error *err, sigset_t *set);
     int                     p101_sigprocmask(const struct p101_env *env, struct p101_error *err, int how, const sigset_t *restrict set, sigset_t *restrict oset);
-    int                     p101_sigsuspend(const struct p101_env *env, const sigset_t *sigmask);
+    int                     p101_sigsuspend(const struct p101_env *env, struct p101_error *err, const sigset_t *sigmask);
     int                     p101_sigwait(const struct p101_env *env, struct p101_error *err, const sigset_t *restrict set, int *restrict sig);
     unsigned                p101_sleep(const struct p101_env *env, unsigned seconds);
     clock_t                 p101_times(const struct p101_env *env, struct p101_error *err, struct tms *buffer);

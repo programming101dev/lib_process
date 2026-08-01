@@ -37,7 +37,7 @@ static void test_process_getters(const struct p101_env *env)
     EXPECT(p101_sleep(env, 0) == 0);
 }
 
-static void test_signal_waits(const struct p101_env *env)
+static void test_signal_waits(const struct p101_env *env, struct p101_error *err)
 {
     struct sigaction action = {0};
     sigset_t         mask;
@@ -49,12 +49,14 @@ static void test_signal_waits(const struct p101_env *env)
     /* P101_TEST_CASE(p101_alarm) */
     EXPECT(p101_alarm(env, 1) == 0);
     /* P101_TEST_CASE(p101_pause) */
-    EXPECT(p101_pause(env) == -1);
+    EXPECT(p101_pause(env, err) == -1);
+    p101_error_reset(err);
 
     EXPECT(sigemptyset(&mask) == 0);
     EXPECT(p101_alarm(env, 1) == 0);
     /* P101_TEST_CASE(p101_sigsuspend) */
-    EXPECT(p101_sigsuspend(env, &mask) == -1);
+    EXPECT(p101_sigsuspend(env, err, &mask) == -1);
+    p101_error_reset(err);
     EXPECT(p101_alarm(env, 0) == 0);
 }
 
@@ -109,7 +111,7 @@ int main(void)
         return EXIT_FAILURE;
     }
     test_process_getters(env);
-    test_signal_waits(env);
+    test_signal_waits(env, err);
     test_siglongjmp(env);
     test_immediate_exit(env);
     p101_env_destroy(env);

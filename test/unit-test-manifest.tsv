@@ -11,6 +11,7 @@ p101_getsid	fault	test/test_fault_wrappers.c
 p101_kill	fault	test/test_fault_wrappers.c
 p101_killpg	fault	test/test_fault_wrappers.c
 p101_nice	fault	test/test_fault_wrappers.c
+p101_pause	fault	test/test_fault_wrappers.c
 p101_pclose	fault	test/test_fault_wrappers.c
 p101_popen	fault	test/test_fault_wrappers.c
 p101_posix_spawn	fault	test/test_fault_wrappers.c
@@ -48,6 +49,7 @@ p101_sigfillset	fault	test/test_fault_wrappers.c
 p101_sigismember	fault	test/test_fault_wrappers.c
 p101_sigpending	fault	test/test_fault_wrappers.c
 p101_sigprocmask	fault	test/test_fault_wrappers.c
+p101_sigsuspend	fault	test/test_fault_wrappers.c
 p101_sigwait	fault	test/test_fault_wrappers.c
 p101_times	fault	test/test_fault_wrappers.c
 p101_unsetenv	fault	test/test_fault_wrappers.c
@@ -58,8 +60,6 @@ p101_alarm	behavior	test/test_behavior.c
 p101_getpgrp	behavior	test/test_behavior.c
 p101_getpid	behavior	test/test_behavior.c
 p101_getppid	behavior	test/test_behavior.c
-p101_pause	behavior	test/test_behavior.c
 p101_posix_exit_immediately	behavior	test/test_behavior.c
 p101_siglongjmp	behavior	test/test_behavior.c
-p101_sigsuspend	behavior	test/test_behavior.c
 p101_sleep	behavior	test/test_behavior.c
