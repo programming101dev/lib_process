@@ -60,6 +60,5 @@ p101_alarm	behavior	test/test_behavior.c
 p101_getpgrp	behavior	test/test_behavior.c
 p101_getpid	behavior	test/test_behavior.c
 p101_getppid	behavior	test/test_behavior.c
-p101_posix_exit_immediately	behavior	test/test_behavior.c
 p101_siglongjmp	behavior	test/test_behavior.c
 p101_sleep	behavior	test/test_behavior.c

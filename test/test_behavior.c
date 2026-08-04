@@ -74,26 +74,6 @@ static void test_siglongjmp(const struct p101_env *env)
     EXPECT(value == 17);
 }
 
-static void test_immediate_exit(const struct p101_env *env)
-{
-    pid_t child;
-    int   status;
-
-    child = fork();
-    if(child == 0)
-    {
-        /* P101_TEST_CASE(p101_posix_exit_immediately) */
-        p101_posix_exit_immediately(env, 29);
-    }
-    EXPECT(child > 0);
-    if(child > 0)
-    {
-        EXPECT(waitpid(child, &status, 0) == child);
-        EXPECT(WIFEXITED(status));
-        EXPECT(WEXITSTATUS(status) == 29);
-    }
-}
-
 int main(void)
 {
     struct p101_error *err;
@@ -113,7 +93,6 @@ int main(void)
     test_process_getters(env);
     test_signal_waits(env, err);
     test_siglongjmp(env);
-    test_immediate_exit(env);
     p101_env_destroy(env);
     p101_error_destroy(err);
     return failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;

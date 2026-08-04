@@ -24,7 +24,7 @@ int p101_posix_spawn(const struct p101_env *env, struct p101_error *err, pid_t *
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawn(pid, path, file_actions, attrp, argv, envp);
 
     if(ret_val != 0)
@@ -36,7 +36,7 @@ int p101_posix_spawn(const struct p101_env *env, struct p101_error *err, pid_t *
         P101_TRACK_SPAWN(env, (long)p101_getpid(env), (long)*pid, path);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -45,14 +45,14 @@ int p101_posix_spawn_file_actions_addclose(const struct p101_env *env, struct p1
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawn_file_actions_addclose(file_actions, fildes);
 
     if(ret_val != 0)
     {
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -61,14 +61,14 @@ int p101_posix_spawn_file_actions_adddup2(const struct p101_env *env, struct p10
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawn_file_actions_adddup2(file_actions, fildes, newfildes);
 
     if(ret_val != 0)
     {
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -77,14 +77,14 @@ int p101_posix_spawn_file_actions_addopen(const struct p101_env *env, struct p10
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawn_file_actions_addopen(file_actions, fildes, path, oflag, mode);
 
     if(ret_val != 0)
     {
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -94,7 +94,7 @@ int p101_posix_spawn_file_actions_destroy(const struct p101_env *env, struct p10
     int  ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     p101_env_pointer_resource_id(resource_id, sizeof(resource_id), (const void *)file_actions);
     ret_val = posix_spawn_file_actions_destroy(file_actions);
 
@@ -106,7 +106,7 @@ int p101_posix_spawn_file_actions_destroy(const struct p101_env *env, struct p10
     {
         P101_TRACK_RESOURCE_RELEASE(env, "spawn-file-actions", resource_id, NULL);
     }
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -115,7 +115,7 @@ int p101_posix_spawn_file_actions_init(const struct p101_env *env, struct p101_e
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawn_file_actions_init(file_actions);
 
     if(ret_val != 0)
@@ -127,7 +127,7 @@ int p101_posix_spawn_file_actions_init(const struct p101_env *env, struct p101_e
         P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, "spawn-file-actions", (const void *)file_actions, 0U, NULL);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -137,7 +137,7 @@ int p101_posix_spawnattr_destroy(const struct p101_env *env, struct p101_error *
     int  ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     p101_env_pointer_resource_id(resource_id, sizeof(resource_id), (const void *)attr);
     ret_val = posix_spawnattr_destroy(attr);
 
@@ -150,7 +150,7 @@ int p101_posix_spawnattr_destroy(const struct p101_env *env, struct p101_error *
         P101_TRACK_RESOURCE_RELEASE(env, "spawn-attributes", resource_id, NULL);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -159,7 +159,7 @@ int p101_posix_spawnattr_getflags(const struct p101_env *env, struct p101_error 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_getflags(attr, flags);
 
     if(ret_val != 0)
@@ -167,7 +167,7 @@ int p101_posix_spawnattr_getflags(const struct p101_env *env, struct p101_error 
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -176,7 +176,7 @@ int p101_posix_spawnattr_getpgroup(const struct p101_env *env, struct p101_error
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_getpgroup(attr, pgroup);
 
     if(ret_val != 0)
@@ -184,7 +184,7 @@ int p101_posix_spawnattr_getpgroup(const struct p101_env *env, struct p101_error
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -193,7 +193,7 @@ int p101_posix_spawnattr_getsigdefault(const struct p101_env *env, struct p101_e
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_getsigdefault(attr, sigdefault);
 
     if(ret_val != 0)
@@ -201,7 +201,7 @@ int p101_posix_spawnattr_getsigdefault(const struct p101_env *env, struct p101_e
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -210,7 +210,7 @@ int p101_posix_spawnattr_getsigmask(const struct p101_env *env, struct p101_erro
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_getsigmask(attr, sigmask);
 
     if(ret_val != 0)
@@ -218,7 +218,7 @@ int p101_posix_spawnattr_getsigmask(const struct p101_env *env, struct p101_erro
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -227,7 +227,7 @@ int p101_posix_spawnattr_init(const struct p101_env *env, struct p101_error *err
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_init(attr);
 
     if(ret_val != 0)
@@ -239,7 +239,7 @@ int p101_posix_spawnattr_init(const struct p101_env *env, struct p101_error *err
         P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, "spawn-attributes", (const void *)attr, 0U, NULL);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -248,7 +248,7 @@ int p101_posix_spawnattr_setflags(const struct p101_env *env, struct p101_error 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_setflags(attr, flags);
 
     if(ret_val != 0)
@@ -256,7 +256,7 @@ int p101_posix_spawnattr_setflags(const struct p101_env *env, struct p101_error 
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -265,7 +265,7 @@ int p101_posix_spawnattr_setpgroup(const struct p101_env *env, struct p101_error
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_setpgroup(attr, pgroup);
 
     if(ret_val != 0)
@@ -273,7 +273,7 @@ int p101_posix_spawnattr_setpgroup(const struct p101_env *env, struct p101_error
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -282,7 +282,7 @@ int p101_posix_spawnattr_setsigdefault(const struct p101_env *env, struct p101_e
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_setsigdefault(attr, sigdefault);
 
     if(ret_val != 0)
@@ -290,7 +290,7 @@ int p101_posix_spawnattr_setsigdefault(const struct p101_env *env, struct p101_e
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -299,7 +299,7 @@ int p101_posix_spawnattr_setsigmask(const struct p101_env *env, struct p101_erro
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnattr_setsigmask(attr, sigmask);
 
     if(ret_val != 0)
@@ -307,7 +307,7 @@ int p101_posix_spawnattr_setsigmask(const struct p101_env *env, struct p101_erro
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -317,7 +317,7 @@ int p101_posix_spawnp(const struct p101_env *env, struct p101_error *err, pid_t 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     ret_val = posix_spawnp(pid, file, file_actions, attrp, argv, envp);
 
     if(ret_val != 0)
@@ -329,6 +329,6 @@ int p101_posix_spawnp(const struct p101_env *env, struct p101_error *err, pid_t 
         P101_TRACK_SPAWN(env, (long)p101_getpid(env), (long)*pid, file);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }

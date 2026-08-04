@@ -27,7 +27,7 @@ int p101_setenv(const struct p101_env *env, struct p101_error *err, const char *
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = setenv(envname, envval, overwrite);
 
@@ -36,7 +36,7 @@ int p101_setenv(const struct p101_env *env, struct p101_error *err, const char *
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -45,7 +45,7 @@ int p101_unsetenv(const struct p101_env *env, struct p101_error *err, const char
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = unsetenv(name);
 
@@ -54,6 +54,6 @@ int p101_unsetenv(const struct p101_env *env, struct p101_error *err, const char
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }

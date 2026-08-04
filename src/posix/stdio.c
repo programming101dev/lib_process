@@ -37,7 +37,7 @@ int p101_pclose(const struct p101_env *env, struct p101_error *err, FILE *stream
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     fd    = fileno(stream);
     errno = 0;
     P101_TRACK_POINTER_RESOURCE_RELEASE(env, "stdio-stream", stream, "pclose");
@@ -54,7 +54,7 @@ int p101_pclose(const struct p101_env *env, struct p101_error *err, FILE *stream
         P101_ERROR_RAISE_ERRNO(err, stdio_error_code(actual_error));
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -63,7 +63,7 @@ FILE *p101_popen(const struct p101_env *env, struct p101_error *err, const char 
     FILE *ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, NULL);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, NULL);
     errno   = 0;
     ret_val = popen(command, mode);    // NOLINT(cert-env33-c, bugprone-command-processor)
 
@@ -83,6 +83,6 @@ FILE *p101_popen(const struct p101_env *env, struct p101_error *err, const char 
         }
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }

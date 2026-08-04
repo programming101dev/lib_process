@@ -1,3 +1,2 @@
 # These native calls implement the process wrapper boundary itself.
 src/posix/stdio.c:*:fileno
-src/posix/unistd.c:*:_exit

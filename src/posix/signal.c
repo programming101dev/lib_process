@@ -22,7 +22,7 @@ int p101_kill(const struct p101_env *env, struct p101_error *err, pid_t pid, int
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = kill(pid, sig);
 
@@ -31,7 +31,7 @@ int p101_kill(const struct p101_env *env, struct p101_error *err, pid_t pid, int
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -40,7 +40,7 @@ int p101_sigaction(const struct p101_env *env, struct p101_error *err, int sig, 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sigaction(sig, act, oact);
 
@@ -49,7 +49,7 @@ int p101_sigaction(const struct p101_env *env, struct p101_error *err, int sig, 
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -58,7 +58,7 @@ int p101_sigaddset(const struct p101_env *env, struct p101_error *err, sigset_t 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno = 0;
 
 #ifdef __APPLE__
@@ -75,7 +75,7 @@ int p101_sigaddset(const struct p101_env *env, struct p101_error *err, sigset_t 
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -84,7 +84,7 @@ int p101_sigdelset(const struct p101_env *env, struct p101_error *err, sigset_t 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno = 0;
 #ifdef __APPLE__
     #pragma GCC diagnostic push
@@ -100,7 +100,7 @@ int p101_sigdelset(const struct p101_env *env, struct p101_error *err, sigset_t 
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -109,7 +109,7 @@ int p101_sigemptyset(const struct p101_env *env, struct p101_error *err, sigset_
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sigemptyset(set);
 
@@ -118,7 +118,7 @@ int p101_sigemptyset(const struct p101_env *env, struct p101_error *err, sigset_
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -127,7 +127,7 @@ int p101_sigfillset(const struct p101_env *env, struct p101_error *err, sigset_t
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sigfillset(set);
 
@@ -136,7 +136,7 @@ int p101_sigfillset(const struct p101_env *env, struct p101_error *err, sigset_t
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -145,7 +145,7 @@ int p101_sigismember(const struct p101_env *env, struct p101_error *err, const s
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno = 0;
 #ifdef __APPLE__
     #pragma GCC diagnostic push
@@ -161,7 +161,7 @@ int p101_sigismember(const struct p101_env *env, struct p101_error *err, const s
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -170,7 +170,7 @@ int p101_sigpending(const struct p101_env *env, struct p101_error *err, sigset_t
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sigpending(set);
 
@@ -179,7 +179,7 @@ int p101_sigpending(const struct p101_env *env, struct p101_error *err, sigset_t
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -188,7 +188,7 @@ int p101_sigprocmask(const struct p101_env *env, struct p101_error *err, int how
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sigprocmask(how, set, oset);
 
@@ -197,7 +197,7 @@ int p101_sigprocmask(const struct p101_env *env, struct p101_error *err, int how
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -206,7 +206,7 @@ int p101_sigsuspend(const struct p101_env *env, struct p101_error *err, const si
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sigsuspend(sigmask);
 
@@ -215,7 +215,7 @@ int p101_sigsuspend(const struct p101_env *env, struct p101_error *err, const si
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -224,7 +224,7 @@ int p101_sigwait(const struct p101_env *env, struct p101_error *err, const sigse
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN_CODE(env, err);
+    P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
     errno   = 0;
     ret_val = sigwait(set, sig);
 
@@ -233,6 +233,6 @@ int p101_sigwait(const struct p101_env *env, struct p101_error *err, const sigse
         P101_ERROR_RAISE_ERRNO(err, ret_val);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }

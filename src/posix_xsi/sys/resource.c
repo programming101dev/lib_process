@@ -6,7 +6,7 @@ int p101_getpriority(const struct p101_env *env, struct p101_error *err, int whi
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno = 0;
 #ifdef __linux__
     ret_val = getpriority((__priority_which_t)which, who);
@@ -21,7 +21,7 @@ int p101_getpriority(const struct p101_env *env, struct p101_error *err, int whi
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -30,7 +30,7 @@ int p101_getrlimit(const struct p101_env *env, struct p101_error *err, int resou
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno = 0;
 #ifdef __linux__
     ret_val = getrlimit((__rlimit_resource_t)resource, rlp);
@@ -43,7 +43,7 @@ int p101_getrlimit(const struct p101_env *env, struct p101_error *err, int resou
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -52,7 +52,7 @@ int p101_getrusage(const struct p101_env *env, struct p101_error *err, int who, 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = getrusage(who, r_usage);
 
@@ -61,7 +61,7 @@ int p101_getrusage(const struct p101_env *env, struct p101_error *err, int who, 
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -70,7 +70,7 @@ int p101_setpriority(const struct p101_env *env, struct p101_error *err, int whi
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno = 0;
 #ifdef __linux__
     ret_val = setpriority((__priority_which_t)which, who, value);
@@ -85,7 +85,7 @@ int p101_setpriority(const struct p101_env *env, struct p101_error *err, int whi
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -94,7 +94,7 @@ int p101_setrlimit(const struct p101_env *env, struct p101_error *err, int resou
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno = 0;
 #ifdef __linux__
     ret_val = setrlimit((__rlimit_resource_t)resource, rlp);
@@ -107,6 +107,6 @@ int p101_setrlimit(const struct p101_env *env, struct p101_error *err, int resou
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }

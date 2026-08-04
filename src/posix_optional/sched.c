@@ -23,7 +23,7 @@ int p101_sched_get_priority_max(const struct p101_env *env, struct p101_error *e
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sched_get_priority_max(policy);
 
@@ -32,7 +32,7 @@ int p101_sched_get_priority_max(const struct p101_env *env, struct p101_error *e
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -41,7 +41,7 @@ int p101_sched_get_priority_min(const struct p101_env *env, struct p101_error *e
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sched_get_priority_min(policy);
 
@@ -50,6 +50,6 @@ int p101_sched_get_priority_min(const struct p101_env *env, struct p101_error *e
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }

@@ -29,21 +29,12 @@ unsigned p101_alarm(const struct p101_env *env, unsigned seconds)
     return ret_val;
 }
 
-void p101_posix_exit_immediately(const struct p101_env *env, int status)
-{
-    P101_TRACE(env);
-    errno = 0;
-    P101_TRACE_EXIT(env);
-    p101_env_complete_event_streams(env);
-    _exit(status);
-}
-
 int p101_execv(const struct p101_env *env, struct p101_error *err, const char *path, char *const argv[])
 {
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     P101_TRACK_EXEC(env, path);
     errno   = 0;
     ret_val = execv(path, argv);
@@ -57,7 +48,7 @@ int p101_execv(const struct p101_env *env, struct p101_error *err, const char *p
         P101_ERROR_RAISE_ERRNO(err, actual_error);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -66,7 +57,7 @@ int p101_execve(const struct p101_env *env, struct p101_error *err, const char *
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     P101_TRACK_EXEC(env, path);
     errno   = 0;
     ret_val = execve(path, argv, envp);
@@ -80,7 +71,7 @@ int p101_execve(const struct p101_env *env, struct p101_error *err, const char *
         P101_ERROR_RAISE_ERRNO(err, actual_error);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -89,7 +80,7 @@ int p101_execvp(const struct p101_env *env, struct p101_error *err, const char *
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     P101_TRACK_EXEC(env, file);
     errno   = 0;
     ret_val = execvp(file, argv);
@@ -103,7 +94,7 @@ int p101_execvp(const struct p101_env *env, struct p101_error *err, const char *
         P101_ERROR_RAISE_ERRNO(err, actual_error);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -112,7 +103,7 @@ pid_t p101_fork(const struct p101_env *env, struct p101_error *err)
     pid_t ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = fork();
 
@@ -136,7 +127,7 @@ pid_t p101_fork(const struct p101_env *env, struct p101_error *err)
 
     if(ret_val != 0)
     {
-        P101_TRACE_EXIT(env);
+        P101_WRAPPER_DONE(env);
     }
     return ret_val;
 }
@@ -146,7 +137,7 @@ pid_t p101_getpgid(const struct p101_env *env, struct p101_error *err, pid_t pid
     pid_t ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = getpgid(pid);
 
@@ -155,7 +146,7 @@ pid_t p101_getpgid(const struct p101_env *env, struct p101_error *err, pid_t pid
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -200,7 +191,7 @@ pid_t p101_getsid(const struct p101_env *env, struct p101_error *err, pid_t pid)
     pid_t ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = getsid(pid);
 
@@ -209,7 +200,7 @@ pid_t p101_getsid(const struct p101_env *env, struct p101_error *err, pid_t pid)
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -218,7 +209,7 @@ int p101_pause(const struct p101_env *env, struct p101_error *err)
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = pause();
 
@@ -227,7 +218,7 @@ int p101_pause(const struct p101_env *env, struct p101_error *err)
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -236,7 +227,7 @@ int p101_setpgid(const struct p101_env *env, struct p101_error *err, pid_t pid, 
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = setpgid(pid, pgid);
 
@@ -245,7 +236,7 @@ int p101_setpgid(const struct p101_env *env, struct p101_error *err, pid_t pid, 
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 
@@ -254,7 +245,7 @@ pid_t p101_setsid(const struct p101_env *env, struct p101_error *err)
     pid_t ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = setsid();
 
@@ -263,7 +254,7 @@ pid_t p101_setsid(const struct p101_env *env, struct p101_error *err)
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
 

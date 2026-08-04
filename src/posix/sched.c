@@ -23,7 +23,7 @@ int p101_sched_yield(const struct p101_env *env, struct p101_error *err)
     int ret_val;
 
     P101_TRACE(env);
-    P101_WRAPPER_FAULT_RETURN(env, err, -1);
+    P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     errno   = 0;
     ret_val = sched_yield();
 
@@ -32,6 +32,6 @@ int p101_sched_yield(const struct p101_env *env, struct p101_error *err)
         P101_ERROR_RAISE_ERRNO(err, errno);
     }
 
-    P101_TRACE_EXIT(env);
+    P101_WRAPPER_DONE(env);
     return ret_val;
 }
