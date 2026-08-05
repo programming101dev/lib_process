@@ -4648,13 +4648,27 @@ static void test_p101_sigwait(struct p101_env *env, struct p101_error *err)
                 _Exit(77);
             }
             sigset_t native_argument_2;
+            sigset_t native_argument_2_previous;
             if(sigemptyset(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            if(sigaddset(&native_argument_2, SIGUSR1) != 0)
+            {
+                _Exit(77);
+            }
+            if(sigprocmask(SIG_BLOCK, &native_argument_2, &native_argument_2_previous) != 0)
+            {
+                _Exit(77);
+            }
+            if(raise(SIGUSR1) != 0)
             {
                 _Exit(77);
             }
             int native_argument_3 = {0};
             int native_result     = p101_sigwait(native_env, native_err, &native_argument_2, &native_argument_3);
             (void)native_result;
+            (void)sigprocmask(SIG_SETMASK, &native_argument_2_previous, NULL);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
