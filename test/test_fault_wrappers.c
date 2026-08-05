@@ -1428,13 +1428,15 @@ static void test_p101_posix_spawn(struct p101_env *env, struct p101_error *err)
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            pid_t                      native_argument_2    = {0};
-            posix_spawn_file_actions_t native_argument_4    = {0};
-            posix_spawnattr_t          native_argument_5    = {0};
-            char                      *native_argument_6[2] = {(char *)"p101", NULL};
-            char                      *native_argument_7[2] = {(char *)"p101", NULL};
-            int                        native_result        = p101_posix_spawn(native_env, native_err, &native_argument_2, "p101", &native_argument_4, &native_argument_5, native_argument_6, native_argument_7);
+            pid_t native_argument_2    = -1;
+            char *native_argument_6[2] = {(char *)"true", NULL};
+            char *native_argument_7[2] = {(char *)"PATH=/usr/bin:/bin", NULL};
+            int   native_result        = p101_posix_spawn(native_env, native_err, &native_argument_2, "/bin/true", NULL, NULL, native_argument_6, native_argument_7);
             (void)native_result;
+            if(native_result == 0)
+            {
+                (void)waitpid(native_argument_2, NULL, 0);
+            }
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -1519,9 +1521,14 @@ static void test_p101_posix_spawn_file_actions_addclose(struct p101_env *env, st
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawn_file_actions_t native_argument_2 = {0};
-            int                        native_result     = p101_posix_spawn_file_actions_addclose(native_env, native_err, &native_argument_2, 0);
+            posix_spawn_file_actions_t native_argument_2;
+            if(posix_spawn_file_actions_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawn_file_actions_addclose(native_env, native_err, &native_argument_2, 0);
             (void)native_result;
+            (void)posix_spawn_file_actions_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -1606,9 +1613,14 @@ static void test_p101_posix_spawn_file_actions_adddup2(struct p101_env *env, str
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawn_file_actions_t native_argument_2 = {0};
-            int                        native_result     = p101_posix_spawn_file_actions_adddup2(native_env, native_err, &native_argument_2, 0, 0);
+            posix_spawn_file_actions_t native_argument_2;
+            if(posix_spawn_file_actions_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawn_file_actions_adddup2(native_env, native_err, &native_argument_2, 0, 0);
             (void)native_result;
+            (void)posix_spawn_file_actions_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -1693,9 +1705,14 @@ static void test_p101_posix_spawn_file_actions_addopen(struct p101_env *env, str
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawn_file_actions_t native_argument_2 = {0};
-            int                        native_result     = p101_posix_spawn_file_actions_addopen(native_env, native_err, &native_argument_2, 0, "p101", 0, 0);
+            posix_spawn_file_actions_t native_argument_2;
+            if(posix_spawn_file_actions_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawn_file_actions_addopen(native_env, native_err, &native_argument_2, 0, "p101", 0, 0);
             (void)native_result;
+            (void)posix_spawn_file_actions_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -1780,8 +1797,12 @@ static void test_p101_posix_spawn_file_actions_destroy(struct p101_env *env, str
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawn_file_actions_t native_argument_2 = {0};
-            int                        native_result     = p101_posix_spawn_file_actions_destroy(native_env, native_err, &native_argument_2);
+            posix_spawn_file_actions_t native_argument_2;
+            if(posix_spawn_file_actions_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawn_file_actions_destroy(native_env, native_err, &native_argument_2);
             (void)native_result;
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
@@ -1867,9 +1888,13 @@ static void test_p101_posix_spawn_file_actions_init(struct p101_env *env, struct
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawn_file_actions_t native_argument_2 = {0};
-            int                        native_result     = p101_posix_spawn_file_actions_init(native_env, native_err, &native_argument_2);
+            posix_spawn_file_actions_t native_argument_2;
+            int                        native_result = p101_posix_spawn_file_actions_init(native_env, native_err, &native_argument_2);
             (void)native_result;
+            if(native_result == 0)
+            {
+                (void)posix_spawn_file_actions_destroy(&native_argument_2);
+            }
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -1954,8 +1979,12 @@ static void test_p101_posix_spawnattr_destroy(struct p101_env *env, struct p101_
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
-            int               native_result     = p101_posix_spawnattr_destroy(native_env, native_err, &native_argument_2);
+            posix_spawnattr_t native_argument_2;
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawnattr_destroy(native_env, native_err, &native_argument_2);
             (void)native_result;
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
@@ -2041,10 +2070,15 @@ static void test_p101_posix_spawnattr_getflags(struct p101_env *env, struct p101
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
+            posix_spawnattr_t native_argument_2;
             short             native_argument_3 = {0};
-            int               native_result     = p101_posix_spawnattr_getflags(native_env, native_err, &native_argument_2, &native_argument_3);
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawnattr_getflags(native_env, native_err, &native_argument_2, &native_argument_3);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2129,10 +2163,15 @@ static void test_p101_posix_spawnattr_getpgroup(struct p101_env *env, struct p10
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
+            posix_spawnattr_t native_argument_2;
             pid_t             native_argument_3 = {0};
-            int               native_result     = p101_posix_spawnattr_getpgroup(native_env, native_err, &native_argument_2, &native_argument_3);
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawnattr_getpgroup(native_env, native_err, &native_argument_2, &native_argument_3);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2217,14 +2256,19 @@ static void test_p101_posix_spawnattr_getsigdefault(struct p101_env *env, struct
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
+            posix_spawnattr_t native_argument_2;
             sigset_t          native_argument_3;
             if(sigemptyset(&native_argument_3) != 0)
             {
                 _Exit(77);
             }
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
             int native_result = p101_posix_spawnattr_getsigdefault(native_env, native_err, &native_argument_2, &native_argument_3);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2309,14 +2353,19 @@ static void test_p101_posix_spawnattr_getsigmask(struct p101_env *env, struct p1
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
+            posix_spawnattr_t native_argument_2;
             sigset_t          native_argument_3;
             if(sigemptyset(&native_argument_3) != 0)
             {
                 _Exit(77);
             }
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
             int native_result = p101_posix_spawnattr_getsigmask(native_env, native_err, &native_argument_2, &native_argument_3);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2401,9 +2450,13 @@ static void test_p101_posix_spawnattr_init(struct p101_env *env, struct p101_err
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
-            int               native_result     = p101_posix_spawnattr_init(native_env, native_err, &native_argument_2);
+            posix_spawnattr_t native_argument_2;
+            int               native_result = p101_posix_spawnattr_init(native_env, native_err, &native_argument_2);
             (void)native_result;
+            if(native_result == 0)
+            {
+                (void)posix_spawnattr_destroy(&native_argument_2);
+            }
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2488,9 +2541,14 @@ static void test_p101_posix_spawnattr_setflags(struct p101_env *env, struct p101
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
-            int               native_result     = p101_posix_spawnattr_setflags(native_env, native_err, &native_argument_2, 0);
+            posix_spawnattr_t native_argument_2;
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawnattr_setflags(native_env, native_err, &native_argument_2, 0);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2575,9 +2633,14 @@ static void test_p101_posix_spawnattr_setpgroup(struct p101_env *env, struct p10
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
-            int               native_result     = p101_posix_spawnattr_setpgroup(native_env, native_err, &native_argument_2, 0);
+            posix_spawnattr_t native_argument_2;
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
+            int native_result = p101_posix_spawnattr_setpgroup(native_env, native_err, &native_argument_2, 0);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2662,14 +2725,19 @@ static void test_p101_posix_spawnattr_setsigdefault(struct p101_env *env, struct
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
+            posix_spawnattr_t native_argument_2;
             sigset_t          native_argument_3;
             if(sigemptyset(&native_argument_3) != 0)
             {
                 _Exit(77);
             }
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
             int native_result = p101_posix_spawnattr_setsigdefault(native_env, native_err, &native_argument_2, &native_argument_3);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2754,14 +2822,19 @@ static void test_p101_posix_spawnattr_setsigmask(struct p101_env *env, struct p1
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            posix_spawnattr_t native_argument_2 = {0};
+            posix_spawnattr_t native_argument_2;
             sigset_t          native_argument_3;
             if(sigemptyset(&native_argument_3) != 0)
             {
                 _Exit(77);
             }
+            if(posix_spawnattr_init(&native_argument_2) != 0)
+            {
+                _Exit(77);
+            }
             int native_result = p101_posix_spawnattr_setsigmask(native_env, native_err, &native_argument_2, &native_argument_3);
             (void)native_result;
+            (void)posix_spawnattr_destroy(&native_argument_2);
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
@@ -2846,13 +2919,15 @@ static void test_p101_posix_spawnp(struct p101_env *env, struct p101_error *err)
                 p101_error_destroy(native_err);
                 _Exit(77);
             }
-            pid_t                      native_argument_2    = {0};
-            posix_spawn_file_actions_t native_argument_4    = {0};
-            posix_spawnattr_t          native_argument_5    = {0};
-            char                      *native_argument_6[2] = {(char *)"p101", NULL};
-            char                      *native_argument_7[2] = {(char *)"p101", NULL};
-            int                        native_result        = p101_posix_spawnp(native_env, native_err, &native_argument_2, "p101", &native_argument_4, &native_argument_5, native_argument_6, native_argument_7);
+            pid_t native_argument_2    = -1;
+            char *native_argument_6[2] = {(char *)"true", NULL};
+            char *native_argument_7[2] = {(char *)"PATH=/usr/bin:/bin", NULL};
+            int   native_result        = p101_posix_spawnp(native_env, native_err, &native_argument_2, "true", NULL, NULL, native_argument_6, native_argument_7);
             (void)native_result;
+            if(native_result == 0)
+            {
+                (void)waitpid(native_argument_2, NULL, 0);
+            }
             p101_env_destroy(native_env);
             p101_error_destroy(native_err);
             _Exit(EXIT_SUCCESS);
