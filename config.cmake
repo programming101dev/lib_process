@@ -19,10 +19,28 @@ set(BSD_STANDARD_FLAGS -D_BSD_SOURCE -D__BSD_VISIBLE)
 
 set(LIBRARY_TARGETS p101_process)
 set(p101_process_SOURCES
-        src/process.c
+        src/sched.c
+        src/setjmp.c
+        src/signal.c
+        src/spawn.c
+        src/stdio.c
+        src/stdlib.c
+        src/sys/resource.c
+        src/sys/times.c
+        src/sys/wait.c
+        src/unistd.c
 )
 set(p101_process_HEADERS
-        include/p101_process/process.h
+        include/p101_process/p101_sched.h
+        include/p101_process/p101_setjmp.h
+        include/p101_process/p101_signal.h
+        include/p101_process/p101_spawn.h
+        include/p101_process/p101_stdio.h
+        include/p101_process/p101_stdlib.h
+        include/p101_process/p101_unistd.h
+        include/p101_process/sys/p101_resource.h
+        include/p101_process/sys/p101_times.h
+        include/p101_process/sys/p101_wait.h
 )
 set(p101_process_LINK_LIBRARIES
         p101_error
