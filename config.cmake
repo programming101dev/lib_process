@@ -19,20 +19,7 @@ set(BSD_STANDARD_FLAGS -D_BSD_SOURCE -D__BSD_VISIBLE)
 
 set(LIBRARY_TARGETS p101_process)
 set(p101_process_SOURCES
-        src/posix/sched.c
-        src/posix/setjmp.c
-        src/posix/signal.c
-        src/posix/stdio.c
-        src/posix/stdlib.c
-        src/posix/sys/times.c
-        src/posix/sys/wait.c
-        src/posix/unistd.c
-        src/posix_optional/sched.c
-        src/posix_optional/spawn.c
-        src/posix_xsi/signal.c
-        src/posix_xsi/stdlib.c
-        src/posix_xsi/sys/resource.c
-        src/posix_xsi/unistd.c
+        src/process.c
 )
 set(p101_process_HEADERS
         include/p101_process/process.h

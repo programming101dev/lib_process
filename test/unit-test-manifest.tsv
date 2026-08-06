@@ -1,64 +1,64 @@
-function	test_kind	test_source
-p101_execv	fault	test/test_fault_wrappers.c
-p101_execve	fault	test/test_fault_wrappers.c
-p101_execvp	fault	test/test_fault_wrappers.c
-p101_fork	fault	test/test_fault_wrappers.c
-p101_getpgid	fault	test/test_fault_wrappers.c
-p101_getpriority	fault	test/test_fault_wrappers.c
-p101_getrlimit	fault	test/test_fault_wrappers.c
-p101_getrusage	fault	test/test_fault_wrappers.c
-p101_getsid	fault	test/test_fault_wrappers.c
-p101_kill	fault	test/test_fault_wrappers.c
-p101_killpg	fault	test/test_fault_wrappers.c
-p101_nice	fault	test/test_fault_wrappers.c
-p101_pause	fault	test/test_fault_wrappers.c
-p101_pclose	fault	test/test_fault_wrappers.c
-p101_popen	fault	test/test_fault_wrappers.c
-p101_posix_spawn	fault	test/test_fault_wrappers.c
-p101_posix_spawn_file_actions_addclose	fault	test/test_fault_wrappers.c
-p101_posix_spawn_file_actions_adddup2	fault	test/test_fault_wrappers.c
-p101_posix_spawn_file_actions_addopen	fault	test/test_fault_wrappers.c
-p101_posix_spawn_file_actions_destroy	fault	test/test_fault_wrappers.c
-p101_posix_spawn_file_actions_init	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_destroy	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_getflags	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_getpgroup	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_getsigdefault	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_getsigmask	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_init	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_setflags	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_setpgroup	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_setsigdefault	fault	test/test_fault_wrappers.c
-p101_posix_spawnattr_setsigmask	fault	test/test_fault_wrappers.c
-p101_posix_spawnp	fault	test/test_fault_wrappers.c
-p101_putenv	fault	test/test_fault_wrappers.c
-p101_sched_get_priority_max	fault	test/test_fault_wrappers.c
-p101_sched_get_priority_min	fault	test/test_fault_wrappers.c
-p101_sched_yield	fault	test/test_fault_wrappers.c
-p101_setenv	fault	test/test_fault_wrappers.c
-p101_setpgid	fault	test/test_fault_wrappers.c
-p101_setpriority	fault	test/test_fault_wrappers.c
-p101_setrlimit	fault	test/test_fault_wrappers.c
-p101_setsid	fault	test/test_fault_wrappers.c
-p101_sigaction	fault	test/test_fault_wrappers.c
-p101_sigaddset	fault	test/test_fault_wrappers.c
-p101_sigaltstack	fault	test/test_fault_wrappers.c
-p101_sigdelset	fault	test/test_fault_wrappers.c
-p101_sigemptyset	fault	test/test_fault_wrappers.c
-p101_sigfillset	fault	test/test_fault_wrappers.c
-p101_sigismember	fault	test/test_fault_wrappers.c
-p101_sigpending	fault	test/test_fault_wrappers.c
-p101_sigprocmask	fault	test/test_fault_wrappers.c
-p101_sigsuspend	fault	test/test_fault_wrappers.c
-p101_sigwait	fault	test/test_fault_wrappers.c
-p101_times	fault	test/test_fault_wrappers.c
-p101_unsetenv	fault	test/test_fault_wrappers.c
-p101_wait	fault	test/test_fault_wrappers.c
-p101_waitid	fault	test/test_fault_wrappers.c
-p101_waitpid	fault	test/test_fault_wrappers.c
-p101_alarm	behavior	test/test_behavior.c
-p101_getpgrp	behavior	test/test_behavior.c
-p101_getpid	behavior	test/test_behavior.c
-p101_getppid	behavior	test/test_behavior.c
-p101_siglongjmp	behavior	test/test_behavior.c
-p101_sleep	behavior	test/test_behavior.c
+function	function_usr	test_kind	test_source
+p101_execv	c:@F@p101_execv	fault	test/test_fault_wrappers.c
+p101_execve	c:@F@p101_execve	fault	test/test_fault_wrappers.c
+p101_execvp	c:@F@p101_execvp	fault	test/test_fault_wrappers.c
+p101_fork	c:@F@p101_fork	fault	test/test_fault_wrappers.c
+p101_getpgid	c:@F@p101_getpgid	fault	test/test_fault_wrappers.c
+p101_getpriority	c:@F@p101_getpriority	fault	test/test_fault_wrappers.c
+p101_getrlimit	c:@F@p101_getrlimit	fault	test/test_fault_wrappers.c
+p101_getrusage	c:@F@p101_getrusage	fault	test/test_fault_wrappers.c
+p101_getsid	c:@F@p101_getsid	fault	test/test_fault_wrappers.c
+p101_kill	c:@F@p101_kill	fault	test/test_fault_wrappers.c
+p101_killpg	c:@F@p101_killpg	fault	test/test_fault_wrappers.c
+p101_nice	c:@F@p101_nice	fault	test/test_fault_wrappers.c
+p101_pause	c:@F@p101_pause	fault	test/test_fault_wrappers.c
+p101_pclose	c:@F@p101_pclose	fault	test/test_fault_wrappers.c
+p101_popen	c:@F@p101_popen	fault	test/test_fault_wrappers.c
+p101_posix_spawn	c:@F@p101_posix_spawn	fault	test/test_fault_wrappers.c
+p101_posix_spawn_file_actions_addclose	c:@F@p101_posix_spawn_file_actions_addclose	fault	test/test_fault_wrappers.c
+p101_posix_spawn_file_actions_adddup2	c:@F@p101_posix_spawn_file_actions_adddup2	fault	test/test_fault_wrappers.c
+p101_posix_spawn_file_actions_addopen	c:@F@p101_posix_spawn_file_actions_addopen	fault	test/test_fault_wrappers.c
+p101_posix_spawn_file_actions_destroy	c:@F@p101_posix_spawn_file_actions_destroy	fault	test/test_fault_wrappers.c
+p101_posix_spawn_file_actions_init	c:@F@p101_posix_spawn_file_actions_init	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_destroy	c:@F@p101_posix_spawnattr_destroy	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_getflags	c:@F@p101_posix_spawnattr_getflags	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_getpgroup	c:@F@p101_posix_spawnattr_getpgroup	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_getsigdefault	c:@F@p101_posix_spawnattr_getsigdefault	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_getsigmask	c:@F@p101_posix_spawnattr_getsigmask	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_init	c:@F@p101_posix_spawnattr_init	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_setflags	c:@F@p101_posix_spawnattr_setflags	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_setpgroup	c:@F@p101_posix_spawnattr_setpgroup	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_setsigdefault	c:@F@p101_posix_spawnattr_setsigdefault	fault	test/test_fault_wrappers.c
+p101_posix_spawnattr_setsigmask	c:@F@p101_posix_spawnattr_setsigmask	fault	test/test_fault_wrappers.c
+p101_posix_spawnp	c:@F@p101_posix_spawnp	fault	test/test_fault_wrappers.c
+p101_putenv	c:@F@p101_putenv	fault	test/test_fault_wrappers.c
+p101_sched_get_priority_max	c:@F@p101_sched_get_priority_max	fault	test/test_fault_wrappers.c
+p101_sched_get_priority_min	c:@F@p101_sched_get_priority_min	fault	test/test_fault_wrappers.c
+p101_sched_yield	c:@F@p101_sched_yield	fault	test/test_fault_wrappers.c
+p101_setenv	c:@F@p101_setenv	fault	test/test_fault_wrappers.c
+p101_setpgid	c:@F@p101_setpgid	fault	test/test_fault_wrappers.c
+p101_setpriority	c:@F@p101_setpriority	fault	test/test_fault_wrappers.c
+p101_setrlimit	c:@F@p101_setrlimit	fault	test/test_fault_wrappers.c
+p101_setsid	c:@F@p101_setsid	fault	test/test_fault_wrappers.c
+p101_sigaction	c:@F@p101_sigaction	fault	test/test_fault_wrappers.c
+p101_sigaddset	c:@F@p101_sigaddset	fault	test/test_fault_wrappers.c
+p101_sigaltstack	c:@F@p101_sigaltstack	fault	test/test_fault_wrappers.c
+p101_sigdelset	c:@F@p101_sigdelset	fault	test/test_fault_wrappers.c
+p101_sigemptyset	c:@F@p101_sigemptyset	fault	test/test_fault_wrappers.c
+p101_sigfillset	c:@F@p101_sigfillset	fault	test/test_fault_wrappers.c
+p101_sigismember	c:@F@p101_sigismember	fault	test/test_fault_wrappers.c
+p101_sigpending	c:@F@p101_sigpending	fault	test/test_fault_wrappers.c
+p101_sigprocmask	c:@F@p101_sigprocmask	fault	test/test_fault_wrappers.c
+p101_sigsuspend	c:@F@p101_sigsuspend	fault	test/test_fault_wrappers.c
+p101_sigwait	c:@F@p101_sigwait	fault	test/test_fault_wrappers.c
+p101_times	c:@F@p101_times	fault	test/test_fault_wrappers.c
+p101_unsetenv	c:@F@p101_unsetenv	fault	test/test_fault_wrappers.c
+p101_wait	c:@F@p101_wait	fault	test/test_fault_wrappers.c
+p101_waitid	c:@F@p101_waitid	fault	test/test_fault_wrappers.c
+p101_waitpid	c:@F@p101_waitpid	fault	test/test_fault_wrappers.c
+p101_alarm	c:@F@p101_alarm	behavior	test/test_behavior.c
+p101_getpgrp	c:@F@p101_getpgrp	behavior	test/test_behavior.c
+p101_getpid	c:@F@p101_getpid	behavior	test/test_behavior.c
+p101_getppid	c:@F@p101_getppid	behavior	test/test_behavior.c
+p101_siglongjmp	c:@F@p101_siglongjmp	behavior	test/test_behavior.c
+p101_sleep	c:@F@p101_sleep	behavior	test/test_behavior.c

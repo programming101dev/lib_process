@@ -76,24 +76,27 @@ static void test_siglongjmp(const struct p101_env *env)
 
 int main(void)
 {
-    struct p101_error *err;
-    struct p101_env   *env;
+    struct p101_error *err = NULL;
+    struct p101_env   *env = NULL;
+    int                status;
 
     err = p101_error_create(false);
-    if(err == NULL)
+    if(err != NULL)
     {
-        return EXIT_FAILURE;
+        env = p101_env_create(err, NULL);
     }
-    env = p101_env_create(err, NULL);
     if(env == NULL)
     {
-        p101_error_destroy(err);
-        return EXIT_FAILURE;
+        failures++;
     }
-    test_process_getters(env);
-    test_signal_waits(env, err);
-    test_siglongjmp(env);
+    else
+    {
+        test_process_getters(env);
+        test_signal_waits(env, err);
+        test_siglongjmp(env);
+    }
     p101_env_destroy(env);
     p101_error_destroy(err);
-    return failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
+    status = failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
+    return status;
 }

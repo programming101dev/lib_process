@@ -1,2 +1,2 @@
 # These native calls implement the process wrapper boundary itself.
-src/posix/stdio.c:*:fileno
+src/process.c		c:@F@fileno
