@@ -42,7 +42,6 @@
  * limitations under the License.
  */
 
-#include <p101_env/wrapper.h>
 #include <sched.h>
 
 int p101_sched_yield(const struct p101_env *env, struct p101_error *err)
