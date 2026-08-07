@@ -39,13 +39,15 @@
  * is a redundant cast on one platform and a required one on the others. No
  * single spelling satisfies every platform, so GCC's redundant-cast report is
  * disabled for this function alone. The guard is narrow: clang has no such
- * diagnostic, and GCC before 16 rejects the pragma outright because the
- * option was C++-only there.
+ * diagnostic. -Wpragmas and -Wunknown-warning-option are silenced first so
+ * compilers that do not know -Wuseless-cast accept the pragma instead of
+ * complaining about it.
  */
-#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 16
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wuseless-cast"
-#endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wpragmas"
+#pragma GCC diagnostic ignored "-Wunknown-warning-option"
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+
 clock_t p101_times(const struct p101_env *env, struct p101_error *err, struct tms *buffer)
 {
     clock_t ret_val;
@@ -63,6 +65,5 @@ clock_t p101_times(const struct p101_env *env, struct p101_error *err, struct tm
     P101_WRAPPER_DONE(env);
     return ret_val;
 }
-#if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 16
-    #pragma GCC diagnostic pop
-#endif
+
+#pragma GCC diagnostic pop
