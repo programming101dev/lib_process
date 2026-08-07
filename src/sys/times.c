@@ -43,8 +43,8 @@
  * option was C++-only there.
  */
 #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 16
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wuseless-cast"
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wuseless-cast"
 #endif
 clock_t p101_times(const struct p101_env *env, struct p101_error *err, struct tms *buffer)
 {
@@ -64,5 +64,5 @@ clock_t p101_times(const struct p101_env *env, struct p101_error *err, struct tm
     return ret_val;
 }
 #if defined(__GNUC__) && !defined(__clang__) && __GNUC__ >= 16
-#pragma GCC diagnostic pop
+    #pragma GCC diagnostic pop
 #endif
