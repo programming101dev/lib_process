@@ -15,6 +15,7 @@
  */
 
 #include "p101_process/p101_stdio.h"
+#include <p101_env/resource_classes.h>
 #include <p101_env/wrapper.h>
 
 /*
@@ -57,7 +58,7 @@ int p101_pclose(const struct p101_env *env, struct p101_error *err, FILE *stream
     P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
     fd    = fileno(stream);
     errno = 0;
-    P101_TRACK_POINTER_RESOURCE_RELEASE(env, "stdio-stream", stream, "pclose");
+    P101_TRACK_POINTER_RESOURCE_RELEASE(env, P101_RESOURCE_CLASS_STDIO_STREAM, stream, "pclose");
     ret_val      = pclose(stream);
     actual_error = errno;
 
@@ -92,7 +93,7 @@ FILE *p101_popen(const struct p101_env *env, struct p101_error *err, const char 
     {
         int fd;
 
-        P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, "stdio-stream", ret_val, 0U, "popen");
+        P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, P101_RESOURCE_CLASS_STDIO_STREAM, ret_val, 0U, "popen");
         fd = fileno(ret_val);
         if(fd >= 0)
         {

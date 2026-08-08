@@ -16,6 +16,7 @@
 
 #include "p101_process/p101_spawn.h"
 #include "p101_process/p101_unistd.h"
+#include <p101_env/resource_classes.h>
 #include <p101_env/wrapper.h>
 
 /*
@@ -106,12 +107,10 @@ int p101_posix_spawn_file_actions_addopen(const struct p101_env *env, struct p10
 
 int p101_posix_spawn_file_actions_destroy(const struct p101_env *env, struct p101_error *err, posix_spawn_file_actions_t *file_actions)
 {
-    char resource_id[P101_ENV_POINTER_RESOURCE_ID_SIZE];
-    int  ret_val;
+    int ret_val;
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
-    p101_env_pointer_resource_id(resource_id, sizeof(resource_id), (const void *)file_actions);
     ret_val = posix_spawn_file_actions_destroy(file_actions);
 
     if(ret_val != 0)
@@ -120,7 +119,7 @@ int p101_posix_spawn_file_actions_destroy(const struct p101_env *env, struct p10
     }
     else
     {
-        P101_TRACK_RESOURCE_RELEASE(env, "spawn-file-actions", resource_id, NULL);
+        P101_TRACK_POINTER_RESOURCE_RELEASE(env, P101_RESOURCE_CLASS_SPAWN_FILE_ACTIONS, (const void *)file_actions, NULL);
     }
     P101_WRAPPER_DONE(env);
     return ret_val;
@@ -140,7 +139,7 @@ int p101_posix_spawn_file_actions_init(const struct p101_env *env, struct p101_e
     }
     else
     {
-        P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, "spawn-file-actions", (const void *)file_actions, 0U, NULL);
+        P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, P101_RESOURCE_CLASS_SPAWN_FILE_ACTIONS, (const void *)file_actions, 0U, NULL);
     }
 
     P101_WRAPPER_DONE(env);
@@ -149,12 +148,10 @@ int p101_posix_spawn_file_actions_init(const struct p101_env *env, struct p101_e
 
 int p101_posix_spawnattr_destroy(const struct p101_env *env, struct p101_error *err, posix_spawnattr_t *attr)
 {
-    char resource_id[P101_ENV_POINTER_RESOURCE_ID_SIZE];
-    int  ret_val;
+    int ret_val;
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN_CODE(env, err, ret_val);
-    p101_env_pointer_resource_id(resource_id, sizeof(resource_id), (const void *)attr);
     ret_val = posix_spawnattr_destroy(attr);
 
     if(ret_val != 0)
@@ -163,7 +160,7 @@ int p101_posix_spawnattr_destroy(const struct p101_env *env, struct p101_error *
     }
     else
     {
-        P101_TRACK_RESOURCE_RELEASE(env, "spawn-attributes", resource_id, NULL);
+        P101_TRACK_POINTER_RESOURCE_RELEASE(env, P101_RESOURCE_CLASS_SPAWN_ATTRIBUTES, (const void *)attr, NULL);
     }
 
     P101_WRAPPER_DONE(env);
@@ -252,7 +249,7 @@ int p101_posix_spawnattr_init(const struct p101_env *env, struct p101_error *err
     }
     else
     {
-        P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, "spawn-attributes", (const void *)attr, 0U, NULL);
+        P101_TRACK_POINTER_RESOURCE_ACQUIRE(env, P101_RESOURCE_CLASS_SPAWN_ATTRIBUTES, (const void *)attr, 0U, NULL);
     }
 
     P101_WRAPPER_DONE(env);
