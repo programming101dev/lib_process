@@ -39,9 +39,9 @@ extern "C"
 {
 #endif
 
-    int p101_putenv(const struct p101_env *env, struct p101_error *err, char *string);
-    int p101_setenv(const struct p101_env *env, struct p101_error *err, const char *envname, const char *envval, int overwrite);
-    int p101_unsetenv(const struct p101_env *env, struct p101_error *err, const char *name);
+    int p101_putenv(const struct p101_env *env, struct p101_error *err, char *string) P101_ATTR_SEMANTIC_ROLE("p101:environment:invalidates-borrowed");
+    int p101_setenv(const struct p101_env *env, struct p101_error *err, const char *envname, const char *envval, int overwrite) P101_ATTR_SEMANTIC_ROLE("p101:environment:invalidates-borrowed");
+    int p101_unsetenv(const struct p101_env *env, struct p101_error *err, const char *name) P101_ATTR_SEMANTIC_ROLE("p101:environment:invalidates-borrowed");
 
 #ifdef __cplusplus
 }

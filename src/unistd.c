@@ -139,6 +139,7 @@ pid_t p101_fork(const struct p101_env *env, struct p101_error *err)
         parent_pid = p101_getpid(env);
         child_pid  = ret_val;
         P101_TRACK_FORK(env, parent_pid, child_pid);
+        P101_TRACK_INTEGER_RESOURCE_ACQUIRE(env, "child-process", child_pid, 0U, "fork");
     }
 
     if(ret_val != 0)

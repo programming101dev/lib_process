@@ -39,12 +39,17 @@ pid_t p101_wait(const struct p101_env *env, struct p101_error *err, int *stat_lo
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
+    P101_WRAPPER_BLOCKING(env);
     errno   = 0;
     ret_val = wait(stat_loc);
 
     if(ret_val == -1)
     {
         P101_ERROR_RAISE_ERRNO(err, errno);
+    }
+    else if(ret_val > 0)
+    {
+        P101_TRACK_INTEGER_RESOURCE_RELEASE(env, "child-process", ret_val, "wait");
     }
 
     P101_WRAPPER_DONE(env);
@@ -57,12 +62,20 @@ int p101_waitid(const struct p101_env *env, struct p101_error *err, idtype_t idt
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
+    if((options & WNOHANG) == 0)
+    {
+        P101_WRAPPER_BLOCKING(env);
+    }
     errno   = 0;
     ret_val = waitid(idtype, id, infop, options);
 
     if(ret_val == -1)
     {
         P101_ERROR_RAISE_ERRNO(err, errno);
+    }
+    else if(infop != NULL && infop->si_pid > 0 && (options & WNOWAIT) == 0)
+    {
+        P101_TRACK_INTEGER_RESOURCE_RELEASE(env, "child-process", infop->si_pid, "waitid");
     }
 
     P101_WRAPPER_DONE(env);
@@ -75,12 +88,20 @@ pid_t p101_waitpid(const struct p101_env *env, struct p101_error *err, pid_t pid
 
     P101_TRACE(env);
     P101_WRAPPER_FAULT_RETURN(env, err, ret_val, -1);
+    if((options & WNOHANG) == 0)
+    {
+        P101_WRAPPER_BLOCKING(env);
+    }
     errno   = 0;
     ret_val = waitpid(pid, stat_loc, options);
 
     if(ret_val == -1)
     {
         P101_ERROR_RAISE_ERRNO(err, errno);
+    }
+    else if(ret_val > 0)
+    {
+        P101_TRACK_INTEGER_RESOURCE_RELEASE(env, "child-process", ret_val, "waitpid");
     }
 
     P101_WRAPPER_DONE(env);

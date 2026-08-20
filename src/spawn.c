@@ -51,6 +51,7 @@ int p101_posix_spawn(const struct p101_env *env, struct p101_error *err, pid_t *
     else if(pid != NULL)
     {
         P101_TRACK_SPAWN(env, (long)p101_getpid(env), (long)*pid, path);
+        P101_TRACK_INTEGER_RESOURCE_ACQUIRE(env, "child-process", *pid, 0U, "posix_spawn");
     }
 
     P101_WRAPPER_DONE(env);
@@ -340,6 +341,7 @@ int p101_posix_spawnp(const struct p101_env *env, struct p101_error *err, pid_t 
     else if(pid != NULL)
     {
         P101_TRACK_SPAWN(env, (long)p101_getpid(env), (long)*pid, file);
+        P101_TRACK_INTEGER_RESOURCE_ACQUIRE(env, "child-process", *pid, 0U, "posix_spawnp");
     }
 
     P101_WRAPPER_DONE(env);
